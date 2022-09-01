@@ -8,10 +8,14 @@ type Brick struct {
 }
 
 type BrickVariant struct {
-	ID       string                 `json:"id" validate:"required"`
-	Ordinal  *int                   `json:"ordinal,omitempty"`
-	UiType   string                 `json:"ui_type" validate:"required"`
-	Data     map[string]interface{} `json:"data,omitempty"`
-	Support  Support                `json:"support,omitempty"`
-	Services []string               `json:"services,omitempty"`
+	BrickDTO
+	Support  Support  `json:"support,omitempty"`
+	Services []string `json:"services,omitempty"`
+}
+
+type BrickDTO struct {
+	ID      string                 `json:"id"`
+	Ordinal int                    `json:"ordinal,omitempty"`
+	UiType  string                 `json:"ui_type,omitempty"`
+	Data    map[string]interface{} `json:"data,omitempty"`
 }

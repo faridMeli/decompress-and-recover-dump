@@ -27,4 +27,5 @@ func (e *BrickExecutor) RevoverDump() {
 		bricks = append(bricks, pkg.DecompressBrick(data.Item.CompressedValue.B))
 		//}
 	}
+	return
 }

@@ -17,9 +17,30 @@ func DecompressShortcut(strCompress string) model.Shortcut {
 	return res
 }
 
+func DecompressFilter(strCompress string) model.Filter {
+	strDescompress := stringDecompress(strCompress)
+	res := model.Filter{}
+	json.Unmarshal([]byte(strDescompress), &res)
+	return res
+}
+
+func DecompressLayout(strCompress string) model.Layout {
+	strDescompress := stringDecompress(strCompress)
+	res := model.Layout{}
+	json.Unmarshal([]byte(strDescompress), &res)
+	return res
+}
+
 func DecompressBrick(strCompress string) model.Brick {
 	strDescompress := stringDecompress(strCompress)
 	res := model.Brick{}
+	json.Unmarshal([]byte(strDescompress), &res)
+	return res
+}
+
+func DecompressPage(strCompress string) model.Page {
+	strDescompress := stringDecompress(strCompress)
+	res := model.Page{}
 	json.Unmarshal([]byte(strDescompress), &res)
 	return res
 }
