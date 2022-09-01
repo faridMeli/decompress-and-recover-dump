@@ -16,7 +16,7 @@ func NewBrickExecutor(list []data.DataCompressed) *BrickExecutor {
 	}
 }
 
-func (e *BrickExecutor) RollbackDump() {
+func (e *BrickExecutor) RevoverDump() {
 	var bricks []model.Brick
 	//var collections []model.Collection
 

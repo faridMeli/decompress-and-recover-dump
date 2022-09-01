@@ -18,7 +18,7 @@ func NewShortcutExecutor(list []data.DataCompressed) *ShortcutExecutor {
 	}
 }
 
-func (e *ShortcutExecutor) RollbackDump() {
+func (e *ShortcutExecutor) RevoverDump() {
 	count := 0
 	var shortcuts []model.Shortcut
 	var collections []model.Collection

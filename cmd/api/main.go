@@ -24,7 +24,7 @@ func main() {
 		if executor, err := mapJSONByDumpType(file, dump); err != nil {
 			log.Fatal(err)
 		} else {
-			executor.RollbackDump()
+			executor.RevoverDump()
 			log.Println("fin - de: " + file)
 		}
 	}
