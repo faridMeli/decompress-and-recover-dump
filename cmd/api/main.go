@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"strings"
+	"sync"
 
 	//"fmt"
 	"log"
@@ -19,17 +20,31 @@ import (
 	"github.com/faridMeli/decompress-and-recover-dump/internal/executors/shortcutDump"
 )
 
-func main() {
-	var dump string = "Brick"
-	var list []data.DataCompressed
-	for _, file := range listDirByReadDir("/Users/farahmed/Downloads/Bricks") {
+var wg sync.WaitGroup
 
+func main() {
+	// if len(os.Args) != 2 {
+	// 	log.Fatal("Invalid Arguments")
+	// }
+	var dump string = "Brick"
+	var lines []data.DataCompressed
+
+	files := listDirByReadDir("/Users/farahmed/Downloads/Bricks")
+	list := make(chan data.DataCompressed)
+
+	go readChannel(list, &lines)
+
+	for _, file := range files {
 		log.Println("início - de: " + file)
-		if err := mapJSONByDumpType(file, dump, &list); err != nil {
-			log.Fatal(err)
-		}
+		wg.Add(1)
+		go mapJSONByDumpType(file, dump, list)
 	}
-	executor := getExecutor(dump, list)
+
+	wg.Wait()
+	close(list)
+
+	executor := getExecutor(dump, lines)
+
 	if executor == nil {
 		log.Fatal("Failed")
 	} else {
@@ -38,18 +53,24 @@ func main() {
 
 }
 
-func getExecutor(dump string, list []data.DataCompressed) executors.Executor {
+func readChannel(list chan data.DataCompressed, lines *[]data.DataCompressed) {
+	for data := range list {
+		*lines = append(*lines, data)
+	}
+}
+
+func getExecutor(dump string, lines []data.DataCompressed) executors.Executor {
 	switch dump {
 	case "Shortcut":
-		return shortcutDump.NewShortcutExecutor(list)
+		return shortcutDump.NewShortcutExecutor(lines)
 	case "Brick":
-		return brickDump.NewBrickExecutor(list)
+		return brickDump.NewBrickExecutor(lines)
 	case "Layout":
-		return layoutDump.NewLayoutExecutor(list)
+		return layoutDump.NewLayoutExecutor(lines)
 	case "Page":
-		return pageDump.NewPageExecutor(list)
+		return pageDump.NewPageExecutor(lines)
 	case "Filter":
-		return filterDump.NewFilterExecutor(list)
+		return filterDump.NewFilterExecutor(lines)
 	default:
 		return nil
 	}
@@ -72,11 +93,11 @@ func listDirByReadDir(path string) []string {
 	return directory
 }
 
-func mapJSONByDumpType(source, dump string, list *[]data.DataCompressed) error {
+func mapJSONByDumpType(source, dump string, list chan data.DataCompressed) {
 	// 2. Read the JSON file into the struct array
 	sourceFile, err := os.Open(source)
 	if err != nil {
-		return err
+		log.Fatal(err)
 	}
 	// remember to close the file at the end of the function
 	defer sourceFile.Close()
@@ -86,11 +107,11 @@ func mapJSONByDumpType(source, dump string, list *[]data.DataCompressed) error {
 
 	for decoder.More() {
 		if err := decoder.Decode(&ranking); err != nil {
-			return err
+			log.Fatal(err)
 		} else {
-			*list = append(*list, ranking)
+			//*list = append(*list, ranking)
+			list <- ranking
 		}
 	}
-
-	return nil
+	wg.Done()
 }
