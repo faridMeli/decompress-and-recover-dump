@@ -95,6 +95,7 @@ func uncompressGzFile(name string) (string, error) {
 		return "", err
 	}
 
+	//Se puede ingresar un parametro opcional boolean para saber si borramos o no
 	// err = os.Remove(name)
 	// if err != nil {
 	// 	log.Fatal(err)
