@@ -16,7 +16,7 @@ func NewPageExecutor(list []data.DataCompressed) *PageExecutor {
 	}
 }
 
-func (e *PageExecutor) RevoverDump() {
+func (e *PageExecutor) RecoverDump() {
 	var Pages []model.Page
 
 	for _, data := range e.list {

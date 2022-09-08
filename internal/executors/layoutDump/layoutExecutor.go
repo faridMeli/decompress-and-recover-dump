@@ -16,7 +16,7 @@ func NewLayoutExecutor(list []data.DataCompressed) *LayoutExecutor {
 	}
 }
 
-func (e *LayoutExecutor) RevoverDump() {
+func (e *LayoutExecutor) RecoverDump() {
 	var Layouts []model.Layout
 
 	for _, data := range e.list {

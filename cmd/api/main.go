@@ -31,7 +31,7 @@ func main() {
 	var dump string = "Brick"
 	var lines []data.DataCompressed
 
-	files := listDirByReadDir("/Users/farahmed/Downloads/Layouts")
+	files := listFilesByReadingDirectory("/Users/farahmed/Downloads/Test")
 	uncompressAndClearDirectory(&files)
 	list := make(chan data.DataCompressed)
 
@@ -51,7 +51,7 @@ func main() {
 	if executor == nil {
 		log.Fatal("Failed")
 	} else {
-		executor.RevoverDump()
+		executor.RecoverDump()
 	}
 
 }
@@ -61,6 +61,7 @@ func uncompressGzFile(name string) (string, error) {
 	if !strings.Contains(name, ".gz") {
 		return "", nil
 	}
+
 	// Open compressed file
 	gzipFile, err := os.Open(name)
 	if err != nil {
@@ -94,10 +95,10 @@ func uncompressGzFile(name string) (string, error) {
 		return "", err
 	}
 
-	err = os.Remove(name)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// err = os.Remove(name)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 	return newName, nil
 }
 
@@ -111,6 +112,24 @@ func uncompressAndClearDirectory(directory *[]string) {
 			*directory = append(*directory, name)
 		}
 	}
+	clearDirectory(directory)
+}
+
+func clearDirectory(directory *[]string) {
+	while := true
+	i := 0
+	for while {
+		if strings.Contains((*directory)[i], ".gz") {
+			*directory = append((*directory)[:i], (*directory)[i+1:]...)
+			i = 0
+		} else {
+			i++
+		}
+		if i+1 == len(*directory) {
+			while = false
+		}
+	}
+
 }
 
 func readChannel(list chan data.DataCompressed, lines *[]data.DataCompressed) {
@@ -136,7 +155,7 @@ func getExecutor(dump string, lines []data.DataCompressed) executors.Executor {
 	}
 }
 
-func listDirByReadDir(path string) []string {
+func listFilesByReadingDirectory(path string) []string {
 	var directory []string
 	files, err := ioutil.ReadDir(path)
 	if err != nil {

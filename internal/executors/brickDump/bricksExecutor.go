@@ -16,7 +16,7 @@ func NewBrickExecutor(list []data.DataCompressed) *BrickExecutor {
 	}
 }
 
-func (e *BrickExecutor) RevoverDump() {
+func (e *BrickExecutor) RecoverDump() {
 	var bricks []model.Brick
 	//var collections []model.Collection
 

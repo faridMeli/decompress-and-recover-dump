@@ -16,7 +16,7 @@ func NewFilterExecutor(list []data.DataCompressed) *FilterExecutor {
 	}
 }
 
-func (e *FilterExecutor) RevoverDump() {
+func (e *FilterExecutor) RecoverDump() {
 	var Filters []model.Filter
 
 	for _, data := range e.list {

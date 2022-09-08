@@ -18,7 +18,7 @@ func NewShortcutExecutor(list []data.DataCompressed) *ShortcutExecutor {
 	}
 }
 
-func (e *ShortcutExecutor) RevoverDump() {
+func (e *ShortcutExecutor) RecoverDump() {
 	count := 0
 	var shortcuts []model.Shortcut
 	var collections []model.Collection
