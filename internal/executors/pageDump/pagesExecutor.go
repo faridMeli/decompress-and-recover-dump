@@ -17,9 +17,27 @@ func NewPageExecutor(list []data.DataCompressed) *PageExecutor {
 }
 
 func (e *PageExecutor) RecoverDump() {
-	var Pages []model.Page
+	var pages []model.Page
 
 	for _, data := range e.list {
-		Pages = append(Pages, pkg.DecompressPage(data.Item.CompressedValue.B))
+		pages = append(pages, pkg.DecompressPage(data.Item.CompressedValue.B))
 	}
+
+	removeDuplicateValues(&pages)
+}
+
+func removeDuplicateValues(pagesSlice *[]model.Page) {
+	keys := make(map[string]bool)
+	list := []model.Page{}
+
+	// If the key(values of the slice) is not equal
+	// to the already present value in new slice (list)
+	// then we append it. else we jump on another element.
+	for _, brick := range *pagesSlice {
+		if _, value := keys[brick.ID]; !value {
+			keys[brick.ID] = true
+			list = append(list, brick)
+		}
+	}
+	*pagesSlice = list
 }
