@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/faridMeli/decompress-and-recover-dump/internal/model"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/model"
 )
 
 func DecompressShortcut(strCompress string) model.Shortcut {
