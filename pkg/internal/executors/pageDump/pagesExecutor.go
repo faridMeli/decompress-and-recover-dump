@@ -3,8 +3,8 @@ package pageDump
 import (
 	"encoding/json"
 
-	"github.com/faridMeli/decompress-and-recover-dump/pkg"
 	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/data"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/decompress"
 	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/model"
 )
 
@@ -22,7 +22,7 @@ func (e *PageExecutor) RecoverDump() map[string][][]byte {
 	var pages []model.Page
 
 	for _, data := range e.list {
-		pages = append(pages, pkg.DecompressPage(data.Item.CompressedValue.B))
+		pages = append(pages, decompress.DecompressPage(data.Item.CompressedValue.B))
 	}
 
 	removeDuplicateValues(&pages)

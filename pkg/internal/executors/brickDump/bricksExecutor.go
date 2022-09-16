@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/faridMeli/decompress-and-recover-dump/pkg"
 	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/data"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/decompress"
 	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/model"
 )
 
@@ -24,7 +24,7 @@ func (e *BrickExecutor) RecoverDump() map[string][][]byte {
 	var otherBricks []model.BrickTabbar
 
 	for _, data := range e.list {
-		brick := pkg.DecompressBrick(data.Item.CompressedValue.B)
+		brick := decompress.DecompressBrick(data.Item.CompressedValue.B)
 		if !isTabbarBrick(brick) {
 			bricks = append(bricks, brick)
 		} else {

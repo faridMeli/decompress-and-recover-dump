@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/faridMeli/decompress-and-recover-dump/pkg"
 	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/data"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/decompress"
 	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/model"
 )
 
@@ -27,9 +27,9 @@ func (e *ShortcutExecutor) RecoverDump() map[string][][]byte {
 	for _, data := range e.list {
 		count++
 		if strings.Contains(data.Item.Key.S, "collection") {
-			collections = append(collections, pkg.DecompressCollection(data.Item.CompressedValue.B))
+			collections = append(collections, decompress.DecompressCollection(data.Item.CompressedValue.B))
 		} else {
-			shortcuts = append(shortcuts, pkg.DecompressShortcut(data.Item.CompressedValue.B))
+			shortcuts = append(shortcuts, decompress.DecompressShortcut(data.Item.CompressedValue.B))
 		}
 	}
 

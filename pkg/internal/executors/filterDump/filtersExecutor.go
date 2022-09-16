@@ -3,8 +3,8 @@ package filterDump
 import (
 	"encoding/json"
 
-	"github.com/faridMeli/decompress-and-recover-dump/pkg"
 	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/data"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/decompress"
 	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/model"
 )
 
@@ -22,7 +22,7 @@ func (e *FilterExecutor) RecoverDump() map[string][][]byte {
 	var Filters []model.Filter
 
 	for _, data := range e.list {
-		Filters = append(Filters, pkg.DecompressFilter(data.Item.CompressedValue.B))
+		Filters = append(Filters, decompress.DecompressFilter(data.Item.CompressedValue.B))
 	}
 
 	removeDuplicateValues(&Filters)

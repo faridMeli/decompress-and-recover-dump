@@ -3,8 +3,8 @@ package layoutDump
 import (
 	"encoding/json"
 
-	"github.com/faridMeli/decompress-and-recover-dump/pkg"
 	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/data"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/decompress"
 	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/model"
 )
 
@@ -22,7 +22,7 @@ func (e *LayoutExecutor) RecoverDump() map[string][][]byte {
 	var Layouts []model.Layout
 
 	for _, data := range e.list {
-		Layouts = append(Layouts, pkg.DecompressLayout(data.Item.CompressedValue.B))
+		Layouts = append(Layouts, decompress.DecompressLayout(data.Item.CompressedValue.B))
 	}
 
 	removeDuplicateValues(&Layouts)
