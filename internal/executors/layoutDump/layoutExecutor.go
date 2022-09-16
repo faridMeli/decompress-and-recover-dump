@@ -1,6 +1,8 @@
 package layoutDump
 
 import (
+	"encoding/json"
+
 	"github.com/faridMeli/decompress-and-recover-dump/internal/data"
 	"github.com/faridMeli/decompress-and-recover-dump/internal/model"
 	pkg "github.com/faridMeli/decompress-and-recover-dump/pkg"
@@ -16,7 +18,7 @@ func NewLayoutExecutor(list []data.DataCompressed) *LayoutExecutor {
 	}
 }
 
-func (e *LayoutExecutor) RecoverDump() {
+func (e *LayoutExecutor) RecoverDump() map[string][][]byte {
 	var Layouts []model.Layout
 
 	for _, data := range e.list {
@@ -24,6 +26,18 @@ func (e *LayoutExecutor) RecoverDump() {
 	}
 
 	removeDuplicateValues(&Layouts)
+
+	finalResult := make(map[string][][]byte)
+
+	for _, layout := range Layouts {
+		json, err := json.Marshal(layout)
+		if err != nil {
+			return nil
+		}
+		finalResult["layouts"] = append(finalResult["layouts"], json)
+	}
+
+	return finalResult
 }
 
 func removeDuplicateValues(layoutsSlice *[]model.Layout) {

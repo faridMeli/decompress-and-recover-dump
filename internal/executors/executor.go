@@ -1,5 +1,5 @@
 package executors
 
 type Executor interface {
-	RecoverDump()
+	RecoverDump() map[string][][]byte
 }

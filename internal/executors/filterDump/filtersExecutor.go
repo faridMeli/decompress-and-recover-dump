@@ -1,6 +1,8 @@
 package filterDump
 
 import (
+	"encoding/json"
+
 	"github.com/faridMeli/decompress-and-recover-dump/internal/data"
 	"github.com/faridMeli/decompress-and-recover-dump/internal/model"
 	pkg "github.com/faridMeli/decompress-and-recover-dump/pkg"
@@ -16,7 +18,7 @@ func NewFilterExecutor(list []data.DataCompressed) *FilterExecutor {
 	}
 }
 
-func (e *FilterExecutor) RecoverDump() {
+func (e *FilterExecutor) RecoverDump() map[string][][]byte {
 	var Filters []model.Filter
 
 	for _, data := range e.list {
@@ -24,6 +26,18 @@ func (e *FilterExecutor) RecoverDump() {
 	}
 
 	removeDuplicateValues(&Filters)
+
+	finalResult := make(map[string][][]byte)
+
+	for _, filter := range Filters {
+		json, err := json.Marshal(filter)
+		if err != nil {
+			return nil
+		}
+		finalResult["filters"] = append(finalResult["filters"], json)
+	}
+
+	return finalResult
 }
 
 func removeDuplicateValues(filtersSlice *[]model.Filter) {

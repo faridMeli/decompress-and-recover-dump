@@ -1,6 +1,7 @@
 package shortcutDump
 
 import (
+	"encoding/json"
 	"strings"
 
 	"github.com/faridMeli/decompress-and-recover-dump/internal/data"
@@ -18,7 +19,7 @@ func NewShortcutExecutor(list []data.DataCompressed) *ShortcutExecutor {
 	}
 }
 
-func (e *ShortcutExecutor) RecoverDump() {
+func (e *ShortcutExecutor) RecoverDump() map[string][][]byte {
 	count := 0
 	var shortcuts []model.Shortcut
 	var collections []model.Collection
@@ -34,6 +35,25 @@ func (e *ShortcutExecutor) RecoverDump() {
 
 	removeShortcutsDuplicateValues(&shortcuts)
 	removeCollectionsDuplicateValues(&collections)
+
+	finalResult := make(map[string][][]byte)
+
+	for _, shortcut := range shortcuts {
+		json, err := json.Marshal(shortcut)
+		if err != nil {
+			return nil
+		}
+		finalResult["shortcuts"] = append(finalResult["shortcuts"], json)
+	}
+	for _, collection := range collections {
+		json, err := json.Marshal(collection)
+		if err != nil {
+			return nil
+		}
+		finalResult["collections"] = append(finalResult["collections"], json)
+	}
+
+	return finalResult
 }
 
 func removeShortcutsDuplicateValues(shortcutsSlice *[]model.Shortcut) {

@@ -28,10 +28,12 @@ func main() {
 	// if len(os.Args) != 2 {
 	// 	log.Fatal("Invalid Arguments")
 	// }
-	var dump string = "Brick"
+}
+
+func Revover(dump string, directory string) map[string][][]byte {
 	var lines []data.DataCompressed
 
-	files := listFilesByReadingDirectory("/Users/farahmed/Downloads/Test")
+	files := listFilesByReadingDirectory(directory)
 	uncompressAndClearDirectory(&files)
 	list := make(chan data.DataCompressed)
 
@@ -49,9 +51,9 @@ func main() {
 	executor := getExecutor(dump, lines)
 
 	if executor == nil {
-		log.Fatal("Failed")
+		return nil
 	} else {
-		executor.RecoverDump()
+		return executor.RecoverDump()
 	}
 
 }

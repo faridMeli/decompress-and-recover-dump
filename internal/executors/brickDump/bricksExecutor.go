@@ -19,7 +19,7 @@ func NewBrickExecutor(list []data.DataCompressed) *BrickExecutor {
 	}
 }
 
-func (e *BrickExecutor) RecoverDump() {
+func (e *BrickExecutor) RecoverDump() map[string][][]byte {
 	var bricks []model.Brick
 	var otherBricks []model.BrickTabbar
 
@@ -35,7 +35,24 @@ func (e *BrickExecutor) RecoverDump() {
 	bricks = removeBricksDuplicateValues(bricks)
 	otherBricks = removeTabbarBricksDuplicateValues(otherBricks)
 
-	return
+	finalResult := make(map[string][][]byte)
+
+	for _, brick := range bricks {
+		json, err := json.Marshal(brick)
+		if err != nil {
+			return nil
+		}
+		finalResult["bricks"] = append(finalResult["bricks"], json)
+	}
+	for _, brick := range otherBricks {
+		json, err := json.Marshal(brick)
+		if err != nil {
+			return nil
+		}
+		finalResult["tabbar_bricks"] = append(finalResult["tabbar_bricks"], json)
+	}
+
+	return finalResult
 }
 
 func convertAndAppendBrickTababr(bricksTabbar *[]model.BrickTabbar, brick model.Brick) {
