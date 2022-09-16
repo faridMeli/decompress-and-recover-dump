@@ -1,4 +1,4 @@
-package main
+package pkg
 
 import (
 	"compress/gzip"
@@ -23,12 +23,6 @@ import (
 )
 
 var wg sync.WaitGroup
-
-func main() {
-	// if len(os.Args) != 2 {
-	// 	log.Fatal("Invalid Arguments")
-	// }
-}
 
 func Revover(dump string, directory string) map[string][][]byte {
 	var lines []data.DataCompressed
