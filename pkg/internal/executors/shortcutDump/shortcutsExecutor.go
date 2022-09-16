@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	pkg "github.com/faridMeli/decompress-and-recover-dump/pkg"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg"
 	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/data"
 	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/model"
 )
