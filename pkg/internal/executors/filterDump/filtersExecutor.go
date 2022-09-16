@@ -3,9 +3,9 @@ package filterDump
 import (
 	"encoding/json"
 
-	"github.com/faridMeli/decompress-and-recover-dump/internal/data"
-	"github.com/faridMeli/decompress-and-recover-dump/internal/model"
 	pkg "github.com/faridMeli/decompress-and-recover-dump/pkg"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/data"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/model"
 )
 
 type FilterExecutor struct {

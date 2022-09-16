@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"compress/gzip"
@@ -13,13 +13,13 @@ import (
 	"log"
 	"os"
 
-	"github.com/faridMeli/decompress-and-recover-dump/internal/data"
-	"github.com/faridMeli/decompress-and-recover-dump/internal/executors"
-	"github.com/faridMeli/decompress-and-recover-dump/internal/executors/brickDump"
-	"github.com/faridMeli/decompress-and-recover-dump/internal/executors/filterDump"
-	"github.com/faridMeli/decompress-and-recover-dump/internal/executors/layoutDump"
-	"github.com/faridMeli/decompress-and-recover-dump/internal/executors/pageDump"
-	"github.com/faridMeli/decompress-and-recover-dump/internal/executors/shortcutDump"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/data"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/executors"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/executors/brickDump"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/executors/filterDump"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/executors/layoutDump"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/executors/pageDump"
+	"github.com/faridMeli/decompress-and-recover-dump/pkg/internal/executors/shortcutDump"
 )
 
 var wg sync.WaitGroup
