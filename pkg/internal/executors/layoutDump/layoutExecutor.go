@@ -34,7 +34,7 @@ func (e *LayoutExecutor) RecoverDump() map[string][][]byte {
 		if err != nil {
 			return nil
 		}
-		finalResult["layouts"] = append(finalResult["layouts"], json)
+		finalResult["Layout"] = append(finalResult["Layout"], json)
 	}
 
 	return finalResult

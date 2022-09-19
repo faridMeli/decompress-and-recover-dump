@@ -43,14 +43,14 @@ func (e *ShortcutExecutor) RecoverDump() map[string][][]byte {
 		if err != nil {
 			return nil
 		}
-		finalResult["shortcuts"] = append(finalResult["shortcuts"], json)
+		finalResult["Shortcut"] = append(finalResult["Shortcut"], json)
 	}
 	for _, collection := range collections {
 		json, err := json.Marshal(collection)
 		if err != nil {
 			return nil
 		}
-		finalResult["collections"] = append(finalResult["collections"], json)
+		finalResult["Collection"] = append(finalResult["Collection"], json)
 	}
 
 	return finalResult

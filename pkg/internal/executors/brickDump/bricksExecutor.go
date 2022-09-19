@@ -42,14 +42,14 @@ func (e *BrickExecutor) RecoverDump() map[string][][]byte {
 		if err != nil {
 			return nil
 		}
-		finalResult["bricks"] = append(finalResult["bricks"], json)
+		finalResult["Brick"] = append(finalResult["Brick"], json)
 	}
 	for _, brick := range otherBricks {
 		json, err := json.Marshal(brick)
 		if err != nil {
 			return nil
 		}
-		finalResult["tabbar_bricks"] = append(finalResult["tabbar_bricks"], json)
+		finalResult["TabbarBrick"] = append(finalResult["TabbarBrick"], json)
 	}
 
 	return finalResult

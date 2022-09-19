@@ -34,7 +34,7 @@ func (e *PageExecutor) RecoverDump() map[string][][]byte {
 		if err != nil {
 			return nil
 		}
-		finalResult["pages"] = append(finalResult["pages"], json)
+		finalResult["Page"] = append(finalResult["Page"], json)
 	}
 
 	return finalResult
