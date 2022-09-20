@@ -24,7 +24,7 @@ import (
 
 var wg sync.WaitGroup
 
-func Revover(dump string, directory string) map[string][][]byte {
+func Recover(dump string, directory string) map[string][][]byte {
 	var lines []data.DataCompressed
 
 	files := listFilesByReadingDirectory(directory)
